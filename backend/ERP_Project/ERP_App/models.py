@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+
 
 #SALES MANAGEMENT
 class Customer(models.Model):
@@ -16,6 +18,16 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
+    def save(self, *args, **kwargs):
+        if self.product.stock < self.quantity:
+            raise ValidationError(f"Stock insuffisant pour le produit: {self.product.name}")
+        self.product.stock -= self.quantity
+        self.product.save()
+        super().save(*args, **kwargs)
+        
+#This ensures a user can't order more than what's in stock, and stock decreases after order.
+
+
 
 
 #INVENTORY CONTROL
@@ -40,10 +52,25 @@ class Invoice(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2)
     tax = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     pdf_file = models.FileField(upload_to='invoices/', null=True, blank=True)
+    #When an Invoice is created, automatically calculate the total from OrderItems.
+    def save(self, *args, **kwargs):
+        items = self.order.orderitem_set.all()
+        self.total_amount = sum(item.product.price * item.quantity for item in items)
+        super().save(*args, **kwargs)
+
 
 class Payment(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     paid_at = models.DateTimeField(auto_now_add=True)
     method = models.CharField(max_length=50, choices=[('cash', 'Cash'), ('card', 'Card')])
+    def clean(self):
+        if self.amount > self.order.total:
+            raise ValidationError("Le montant du paiement dépasse le total de la commande.")
+        #When a Payment is created, it should not exceed the total amount of the related order.
+    def save(self, *args, **kwargs):
+        self.full_clean()  # this will trigger clean()
+        super().save(*args, **kwargs)
+    
+
 
