@@ -1,7 +1,7 @@
 import React from "react";
-import InventoryTracker from "../components/inventory/InventoryTracker";
-import ProductList from "../components/inventory/ProductList";
-import LowStockAlert from "../components/inventory/LowStockAlert";
+import InventoryTracker from '../components/Inventory/InventoryTracker';
+import ProductList from '../components/Inventory/ProductList';
+import LowStockAlert from '../components/Inventory/LowStockAlert';
 
 const InventoryPage = () => (
   <div>

@@ -1,7 +1,7 @@
 import React from "react";
-import OrderForm from "../components/sales/OrderForm";
-import OrderList from "../components/sales/OrderList";
-import SalesReport from "../components/sales/SalesReport";
+import OrderForm from '../components/Sales/OrderForm';
+import OrderList from '../components/Sales/OrderList';
+import SalesReport from '../components/Sales/SalesReport';
 
 const SalesPage = () => (
   <div>

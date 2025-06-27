@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import InventoryPage from "./pages/InventoryPage";
 import SalesPage from "./pages/SalesPage";
-import Navbar from "./components/layout/Navbar";
-import Sidebar from "./components/layout/Sidebar";
+import Navbar from './components/Shared/Navbar';
+import Sidebar from './components/Shared/Sidebar';
 
 function App() {
   return (
