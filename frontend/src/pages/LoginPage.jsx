@@ -6,16 +6,27 @@ const LoginPage = ({ login }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Fake login credentials
-    if (email === 'admin@example.com' && password === 'password') {
-      const userData = { email };
-      login(userData);
-      navigate('/inventory');
-    } else {
-      alert('Invalid credentials');
+    try {
+      const response = await fetch('http://localhost:8000/api/login/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        login({ email: data.user, token: data.token });
+        navigate('/inventory');
+      } else {
+        alert(data.error || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      alert('Server error');
     }
   };
 
@@ -49,10 +60,7 @@ const LoginPage = ({ login }) => {
           <button type="submit" style={{ padding: '10px 20px', fontSize: '16px' }}>
             Login
           </button>
-          <p>
-             Don’t have an account? <a href="/signup">Sign Up</a>
-             </p>
-
+          <p>Don’t have an account? <a href="/signup">Sign Up</a></p>
         </div>
       </form>
     </div>

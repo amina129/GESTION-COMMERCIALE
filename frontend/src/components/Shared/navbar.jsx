@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-function Navbar() {
+const Navbar = ({ logout }) => {
   return (
     <nav className="navbar">
       <h2>ERP System</h2>
@@ -12,10 +12,14 @@ function Navbar() {
         <li><Link to="/inventory">Inventory</Link></li>
         <li><Link to="/billing">Billing</Link></li>
         <li><Link to="/pos">POS</Link></li>
-        <li><Link to="/logout">Logout</Link></li>
+        <li>
+          <button onClick={logout} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
+            Logout
+          </button>
+        </li>
       </ul>
     </nav>
   );
-}
+};
 
 export default Navbar;
