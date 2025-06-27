@@ -49,6 +49,10 @@ const LoginPage = ({ login }) => {
           <button type="submit" style={{ padding: '10px 20px', fontSize: '16px' }}>
             Login
           </button>
+          <p>
+             Don’t have an account? <a href="/signup">Sign Up</a>
+             </p>
+
         </div>
       </form>
     </div>

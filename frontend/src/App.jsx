@@ -5,6 +5,8 @@ import SalesPage from "./pages/SalesPage";
 import Navbar from './components/Shared/Navbar';
 import Sidebar from './components/Shared/Sidebar';
 import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+
 
 
 function App() {
@@ -54,6 +56,11 @@ function App() {
     path="*"
     element={<Navigate to={user ? "/inventory" : "/login"} />}
   />
+  <Route
+  path="/signup"
+  element={!user ? <SignUpPage login={login} /> : <Navigate to="/inventory" />}
+/>
+
 </Routes>
 
         </div>
