@@ -47,3 +47,4 @@ def login(request):
     else:
         print("Login failed: invalid credentials")
         return Response({'error': 'Invalid credentials'}, status=400)
+

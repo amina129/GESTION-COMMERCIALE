@@ -9,7 +9,7 @@ export default function InventoryTracker() {
   });
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/products/")
+    axios.get('http://localhost:8000/api/erp/inventory/')
       .then(res => {
         const products = res.data;
         const totalProducts = products.length;

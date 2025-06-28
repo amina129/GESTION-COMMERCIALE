@@ -34,3 +34,10 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+
+class InventoryViewSet(viewsets.ModelViewSet):
+    serializer_class = ProductSerializer
+    
+    def get_queryset(self):
+        # Ex : ne retourner que les produits avec quantité > 0
+        return Product.objects.filter(quantity__gt=0)

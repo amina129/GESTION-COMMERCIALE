@@ -10,6 +10,7 @@ router.register(r'orders', OrderViewSet)
 router.register(r'order-items', OrderItemViewSet)
 router.register(r'invoices', InvoiceViewSet)
 router.register(r'payments', PaymentViewSet)
+router.register(r'inventory', InventoryViewSet, basename='inventory')
 
 urlpatterns = [
     path('', include(router.urls)),

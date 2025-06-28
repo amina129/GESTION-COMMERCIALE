@@ -5,7 +5,7 @@ export default function ProductList() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/products/")
+    axios.get("http://localhost:8000/api/erp/products/")
       .then(res => setProducts(res.data))
       .catch(err => console.error("Erreur de chargement:", err));
   }, []);
