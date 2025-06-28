@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProductSearch from './ProductSearch';
+import ProductSearch from './ProductSearchBar';
 import Cart from './Cart';
 import CheckoutForm from './CheckoutForm';
 import ReceiptPreview from './ReceiptPreview';

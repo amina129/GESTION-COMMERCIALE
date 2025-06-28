@@ -1,8 +1,8 @@
 import React from 'react';
-import CustomerInsight from './CustomerInsight';
+import CustomerInsight from './CustomerInsights';
 import KPIWidget from './KPIWidget';
 import SalesChart from './SalesChart';
-import TopProduct from './TopProduct';
+import TopProduct from './TopProducts';
 
 function Dashboard() {
   return (

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import InvoiceList from "./InvoiceList";
-import InvoiceDetail from "./InvoiceDetail";
-import InvoiceForm from "./InvoiceForm";
-import PaymentTracker from "./PaymentTracker";
-import TaxSummary from "./TaxSummary";
+import InvoiceList from '../Billing/InvoiceList';
+import InvoiceDetail from '../Billing/InvoiceDetail';
+import InvoiceForm from '../Billing/InvoiceForm';
+import PaymentTracker from '../Billing/PaymentTracker';
+import TaxSummary from '../Billing/TaxSummary';
+
 
 function BillingDashboard() {
   const [invoices, setInvoices] = useState([]);
@@ -33,7 +34,7 @@ function BillingDashboard() {
   // Handle submitting new invoice data
   const handleAddInvoice = (invoiceData) => {
     axios
-      .post("http://127.0.0.1:8000/api/invoices/", invoiceData)
+      .post("http://127.0.0.1:8000/api/erp/invoices/", invoiceData)
       .then((res) => {
         setInvoices((prev) => [...prev, res.data]);
         setSelectedInvoice(res.data);

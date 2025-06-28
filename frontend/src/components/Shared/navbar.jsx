@@ -7,11 +7,11 @@ const Navbar = ({ logout }) => {
     <nav className="navbar">
       <h2>ERP System</h2>
       <ul>
-        <li><Link to="/">Dashboard</Link></li>
-        <li><Link to="/sales">Sales</Link></li>
-        <li><Link to="/inventory">Inventory</Link></li>
+        <li><Link to="/Dashboard">Dashboard</Link></li>
+        <li><Link to="/Sales">Sales</Link></li>
+        <li><Link to="/Inventory">Inventory</Link></li>
         <li><Link to="/billing">Billing</Link></li>
-        <li><Link to="/pos">POS</Link></li>
+        <li><Link to="/POS">POS</Link></li>
         <li>
           <button onClick={logout} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
             Logout

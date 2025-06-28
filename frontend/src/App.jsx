@@ -6,6 +6,10 @@ import Navbar from './components/Shared/Navbar';
 import Sidebar from './components/Shared/Sidebar';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import Dashboard from './components/Dashboard/Dashboard';
+import BillingDashboard from './components/Dashboard/BillingDashboard';
+import POSInterface from './components/POS/POSInterface';
+
 
 
 
@@ -60,6 +64,13 @@ function App() {
   path="/signup"
   element={!user ? <SignUpPage login={login} /> : <Navigate to="/inventory" />}
 />
+<Route path="/dashboard" element={<Dashboard />} />
+<Route path="/billing" element={<BillingDashboard />} />
+<Route path="/POS" element={<POSInterface />} />
+  
+
+
+
 
 </Routes>
 

@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 
-function ProductSearch({ products, onAdd }) {
-  const [query, setQuery] = useState('');
+function ProductSearch({ products = [], onAdd }) {
+  // Now products is always an array
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const filtered = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+  const filteredProducts = products.filter(p =>
+    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
       <input
-        type="search"
+        type="text"
         placeholder="Rechercher un produit"
-        value={query}
-        onChange={e => setQuery(e.target.value)}
+        value={searchTerm}
+        onChange={e => setSearchTerm(e.target.value)}
       />
       <ul>
-        {filtered.map(product => (
+        {filteredProducts.map(product => (
           <li key={product.id}>
-            {product.name} - ${product.price.toFixed(2)}
+            {product.name} - {product.price}€
             <button onClick={() => onAdd(product)}>Ajouter</button>
           </li>
         ))}
@@ -24,5 +27,5 @@ function ProductSearch({ products, onAdd }) {
     </div>
   );
 }
-
 export default ProductSearch;
+
