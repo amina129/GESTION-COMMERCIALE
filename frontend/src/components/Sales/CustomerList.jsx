@@ -5,7 +5,7 @@ export default function CustomerList() {
   const [customers, setCustomers] = useState([]);
 
   const fetchCustomers = () => {
-    axios.get("http://127.0.0.1:8000/api/customers/")
+    axios.get("http://127.0.0.1:8000/api/erp/customers/")
       .then(res => setCustomers(res.data))
       .catch(err => console.error(err));
   };

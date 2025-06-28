@@ -8,7 +8,7 @@ export default function CustomerForm({ onSuccess }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("http://127.0.0.1:8000/api/customers/", form)
+    axios.post("http://127.0.0.1:8000/api/erp/customers/", form)
       .then(() => {
         onSuccess();
         setForm({ name: "", email: "", phone: "", address: "" });

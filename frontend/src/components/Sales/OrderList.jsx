@@ -6,7 +6,7 @@ export default function OrderList() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/orders/")
+    axios.get('http://localhost:8000/api/erp/orders/')
       .then(res => {
         setOrders(res.data);
         setLoading(false);

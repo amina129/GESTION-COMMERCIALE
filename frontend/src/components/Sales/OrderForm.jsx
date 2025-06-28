@@ -6,7 +6,7 @@ export default function OrderForm({ onSuccess }) {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/customers/")
+    axios.get("http://localhost:8000/api/erp/customers/")
       .then(res => setCustomers(res.data));
   }, []);
 
@@ -14,7 +14,7 @@ export default function OrderForm({ onSuccess }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("http://127.0.0.1:8000/api/orders/", form)
+    axios.post("http://localhost:8000/api/erp/orders/",  form)
       .then(() => {
         onSuccess();
         setForm({ customer: "", total_amount: 0 });
