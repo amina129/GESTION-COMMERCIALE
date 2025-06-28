@@ -6,14 +6,28 @@ const SignUpPage = ({ login }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
-    // You can later replace this with an API call
-    const userData = { email };
-    localStorage.setItem('user', JSON.stringify(userData));
-    login(userData);
-    navigate('/inventory');
+    try {
+      const response = await fetch('http://localhost:8000/api/accounts/signup/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        login({ email: data.user, token: data.token });
+        navigate('/inventory');
+      } else {
+        alert(data.error || 'Signup failed');
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      alert('Server error');
+    }
   };
 
   return (
