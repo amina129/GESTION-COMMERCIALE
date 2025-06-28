@@ -3,6 +3,7 @@ import ProductSearch from './ProductSearchBar';
 import Cart from './Cart';
 import CheckoutForm from './CheckoutForm';
 import ReceiptPreview from './ReceiptPreview';
+import LoadingSpinner from '../Shared/LoadingSpinner'; 
 
 function POSInterface({ products }) {
   const [cartItems, setCartItems] = useState([]);

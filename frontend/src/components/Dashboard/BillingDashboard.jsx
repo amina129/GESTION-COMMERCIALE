@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LoadingSpinner from '../Shared/LoadingSpinner';
 
 import InvoiceList from '../Billing/InvoiceList';
 import InvoiceDetail from '../Billing/InvoiceDetail';
@@ -7,31 +8,30 @@ import InvoiceForm from '../Billing/InvoiceForm';
 import PaymentTracker from '../Billing/PaymentTracker';
 import TaxSummary from '../Billing/TaxSummary';
 
-
 function BillingDashboard() {
   const [invoices, setInvoices] = useState([]);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(true);  // <-- loading state
 
-  // Fetch invoices on mount
   useEffect(() => {
     fetchInvoices();
   }, []);
 
   const fetchInvoices = () => {
+    setLoading(true);
     axios
-      .get("http://127.0.0.1:8000/api/invoices/")
+      .get("http://127.0.0.1:8000/api/erp/invoices/")
       .then((res) => setInvoices(res.data))
-      .catch((err) => console.error("Failed to fetch invoices:", err));
+      .catch((err) => console.error("Failed to fetch invoices:", err))
+      .finally(() => setLoading(false));
   };
 
-  // Handle selecting an invoice from the list
   const handleSelectInvoice = (invoice) => {
     setSelectedInvoice(invoice);
     setShowForm(false);
   };
 
-  // Handle submitting new invoice data
   const handleAddInvoice = (invoiceData) => {
     axios
       .post("http://127.0.0.1:8000/api/erp/invoices/", invoiceData)
@@ -43,11 +43,12 @@ function BillingDashboard() {
       .catch((err) => console.error("Failed to add invoice:", err));
   };
 
-  // Show the form to create a new invoice
   const handleShowForm = () => {
     setSelectedInvoice(null);
     setShowForm(true);
   };
+
+  if (loading) return <LoadingSpinner message="Chargement des factures..." />;
 
   return (
     <div>
