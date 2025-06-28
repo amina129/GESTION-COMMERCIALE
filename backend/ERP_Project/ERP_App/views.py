@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 # ViewSets handle CRUD logic using the serializers.
 
@@ -37,7 +39,15 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
 class InventoryViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
     
     def get_queryset(self):
-        # Ex : ne retourner que les produits avec quantité > 0
         return Product.objects.filter(quantity__gt=0)
+    
+    @action(detail=False, methods=['get'], url_path='low-stock')
+    def low_stock(self, request):
+        low_stock_items = Product.objects.filter(quantity__lt=10)
+        serializer = self.get_serializer(low_stock_items, many=True)
+        return Response(serializer.data)

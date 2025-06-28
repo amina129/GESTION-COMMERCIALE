@@ -5,7 +5,7 @@ export default function LowStockAlert() {
   const [lowStock, setLowStock] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/products/")
+    axios.get("http://localhost:8000/api/erp/inventory/low-stock/")
       .then(res => {
         const filtered = res.data.filter(p => p.stock_quantity <= 5);
         setLowStock(filtered);
