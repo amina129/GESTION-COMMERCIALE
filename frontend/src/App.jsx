@@ -9,6 +9,8 @@ import SignUpPage from './pages/SignUpPage';
 import Dashboard from './components/Dashboard/Dashboard';
 import BillingDashboard from './components/Dashboard/BillingDashboard';
 import POSInterface from './components/POS/POSInterface';
+import WelcomePage from "./pages/WelcomePage";
+
 
 
 
@@ -44,6 +46,8 @@ function App() {
         {user && <Sidebar />}
         <div style={{ marginLeft: "200px", padding: "20px", flex: 1 }}>
          <Routes>
+   <Route path="/" element={<WelcomePage />} />
+  
   <Route
     path="/login"
     element={!user ? <LoginPage login={login} /> : <Navigate to="/inventory" />}
