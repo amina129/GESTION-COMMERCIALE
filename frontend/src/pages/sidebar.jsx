@@ -1,132 +1,174 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './sidebar.css';
-
-import {
-  LayoutDashboard,
-  Building2,
-  DollarSign,
-  Users,
-  Handshake,
-  BookText,
-  Mail,
-  Info,
-  Wrench,
-  FolderKanban,
-  ChevronDown,
-} from 'lucide-react';
 
 const sidebarItems = [
   {
     label: 'Modules',
+    icon: '🧩',
     to: '/modules',
-    icon: <LayoutDashboard size={18} />,
     hasDropdown: true,
     subItems: [
-      { label: 'Accounting', to: '/modules/accounting' },
-      { label: 'Procurement', to: '/modules/procurement' },
-      { label: 'Sales', to: '/modules/sales' },
-      { label: 'CRM', to: '/modules/crm' },
-      { label: 'Stock', to: '/modules/stock' },
-      { label: 'Manufacturing', to: '/modules/manufacturing' },
-      { label: 'Projects', to: '/modules/projects' },
-      { label: 'Assets', to: '/modules/assets' },
-      { label: 'Point of Sale', to: '/modules/pos' },
-      { label: 'Quality', to: '/modules/quality' },
-      { label: 'Support', to: '/modules/support' },
-      { label: 'HR & Payroll', to: '/modules/hr-payroll' },
-      { label: 'No-Code Builder', to: '/modules/no-code-builder' },
-    ],
+      { label: 'Accounting', icon: '📊', to: '/modules/accounting' },
+      { label: 'Procurement', icon: '📦', to: '/modules/procurement' },
+      { label: 'Sales', icon: '💰', to: '/modules/sales' },
+      { label: 'CRM', icon: '👥', to: '/modules/crm' },
+      { label: 'Stock', icon: '📦', to: '/modules/stock' },
+      { label: 'Manufacturing', icon: '🏭', to: '/modules/manufacturing' },
+      { label: 'Projects', icon: '📋', to: '/modules/projects' },
+      { label: 'Assets', icon: '🏢', to: '/modules/assets' },
+      { label: 'Point of Sale', icon: '💳', to: '/modules/pos' },
+      { label: 'Quality', icon: '✅', to: '/modules/quality' },
+      { label: 'Support', icon: '🛠️', to: '/modules/support' },
+      { label: 'HR & Payroll', icon: '👔', to: '/modules/hr-payroll' },
+      { label: 'No-Code Builder', icon: '🧱', to: '/modules/no-code-builder' },
+    ]
   },
   {
     label: 'Industry',
+    icon: '🏢',
     to: '/industry',
-    icon: <Building2 size={18} />,
     hasDropdown: true,
     subItems: [
-      { label: 'Manufacturing', to: '/industry/manufacturing' },
-      { label: 'Trading & Distribution', to: '/industry/trading-distribution' },
-      { label: 'Retail', to: '/industry/retail' },
-      { label: 'Engineering (EPC)', to: '/industry/engineering-epc' },
-      { label: 'E-commerce', to: '/industry/e-commerce' },
-      { label: 'Education', to: '/industry/education' },
-      { label: 'Healthcare', to: '/industry/healthcare' },
-      { label: 'Professional Services', to: '/industry/professional-services' },
-      { label: 'Financial Services', to: '/industry/financial-services' },
-      { label: 'Non-profit', to: '/industry/non-profit' },
-    ],
+      { label: 'Manufacturing', icon: '🏭', to: '/industry/manufacturing' },
+      { label: 'Trading & Distribution', icon: '🚚', to: '/industry/trading-distribution' },
+      { label: 'Retail', icon: '🛍️', to: '/industry/retail' },
+      { label: 'Engineering (EPC)', icon: '⚙️', to: '/industry/engineering-epc' },
+      { label: 'E-commerce', icon: '🛒', to: '/industry/e-commerce' },
+      { label: 'Education', icon: '🎓', to: '/industry/education' },
+      { label: 'Healthcare', icon: '🏥', to: '/industry/healthcare' },
+      { label: 'Professional Services', icon: '💼', to: '/industry/professional-services' },
+      { label: 'Financial Services', icon: '💵', to: '/industry/financial-services' },
+      { label: 'Non-profit', icon: '🤝', to: '/industry/non-profit' },
+    ]
   },
-  { label: 'Pricing', to: '/pricing', icon: <DollarSign size={18} /> },
-  { label: 'Customers', to: '/customers', icon: <Users size={18} /> },
-  { label: 'Partners', to: '/partners', icon: <Handshake size={18} /> },
-  { label: 'Blog', to: '/blog', icon: <BookText size={18} /> },
-  { label: 'Contact us', to: '/contact', icon: <Mail size={18} /> },
-  { label: 'About Frappe', to: '/about', icon: <Info size={18} /> },
-  { label: 'Services', to: '/services', icon: <Wrench size={18} /> },
-  {
-    label: 'Resources',
-    to: '/resources',
-    icon: <FolderKanban size={18} />,
-    hasDropdown: true,
-    subItems: [
-      { label: 'GitHub', to: '/resources/github' },
-      { label: 'Documentation', to: '/resources/documentation' },
-      { label: 'Forum', to: '/resources/forum' },
-      { label: 'Events', to: '/resources/events' },
-      { label: 'Comparisons', to: '/resources/comparisons' },
-      { label: 'Whitepapers', to: '/resources/whitepapers' },
-      { label: 'Marketplace', to: '/resources/marketplace' },
-    ],
-  },
+  { label: 'Pricing', icon: '💲', to: '/pricing' },
+  { label: 'Customers', icon: '👥', to: '/customers' },
+  { label: 'Partners', icon: '🤝', to: '/partners' },
+  { label: 'Blog', icon: '📝', to: '/blog' },
+  { label: 'Contact us', icon: '📧', to: '/contact' },
+  { label: 'About HyperPlan', icon: '⚡', to: '/about' },
+  { label: 'Services', icon: '🛠️', to: '/services' },
+  { label: 'Resources', icon: '📚', to: '/resources' }
 ];
 
 const Sidebar = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const location = useLocation();
 
   const toggleDropdown = (index) => {
     setOpenDropdown(openDropdown === index ? null : index);
   };
 
+  const toggleSidebar = () => {
+  setIsVisible(!isVisible);
+  setIsHovered(false);
+  };
+
+
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && (isHovered || !isVisible)) {
+        setIsVisible(false);
+        setIsHovered(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isHovered, isVisible]);
+
   return (
-    <aside className="sidebar">
-      <h2 className="sidebar-title">HyperPlan</h2>
-      <p style={{ color: 'rgb(192, 194, 199)', fontStyle: 'italic', marginBottom: '1.5rem' }}>
-        fast, agile ERP planning
-      </p>
-      <nav className="sidebar-nav">
-        {sidebarItems.map((item, index) => (
-          <div key={item.label}>
-            {item.hasDropdown ? (
-              <div>
-                <button onClick={() => toggleDropdown(index)} className="dropdown-button">
-                  <span className="flex items-center gap-2">
-                    {item.icon}
-                    {item.label}
-                  </span>
-                  <ChevronDown className={`dropdown-arrow ${openDropdown === index ? 'rotated' : ''}`} size={16} />
-                </button>
-                {openDropdown === index && (
+    <div 
+      className={`sidebar-container ${isVisible ? 'visible' : ''} ${isHovered ? 'hovered' : ''}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="sidebar-toggle" onClick={toggleSidebar}>
+        <div className="toggle-line"></div>
+        <div className="toggle-line"></div>
+        <div className="toggle-line"></div>
+      </div>
+      
+      <aside className="sidebar">
+        <div className="sidebar-header">
+          <div className="logo-container">
+            <div className="logo-icon">⚡</div>
+            <h2 className="sidebar-title">HyperPlan</h2>
+          </div>
+          <p className="sidebar-subtitle">Future-Ready ERP</p>
+        </div>
+        
+        <div className="sidebar-search">
+          <input type="text" placeholder="Search..." className="search-input" />
+          <div className="search-icon">🔍</div>
+        </div>
+        
+        <nav className="sidebar-nav">
+          {sidebarItems.map((item, index) => (
+            <div key={item.label} className="nav-item">
+              {item.hasDropdown ? (
+                <div className={`dropdown-container ${openDropdown === index ? 'open' : ''}`}>
+                  <button
+                    onClick={() => toggleDropdown(index)}
+                    className={`nav-button ${location.pathname.includes(item.to) ? 'active' : ''}`}
+                  >
+                    <span className="nav-icon">{item.icon}</span>
+                    <span className="nav-label">{item.label}</span>
+                    <svg
+                      className="dropdown-arrow"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
                   <div className="dropdown-content">
                     {item.subItems.map((subItem) => (
-                      <Link key={subItem.label} to={subItem.to} className="sub-link">
-                        {subItem.label}
+                      <Link
+                        key={subItem.label}
+                        to={subItem.to}
+                        className={`sub-link ${location.pathname === subItem.to ? 'active' : ''}`}
+                      >
+                        <span className="sub-icon">{subItem.icon}</span>
+                        <span className="sub-label">{subItem.label}</span>
                       </Link>
                     ))}
                   </div>
-                )}
-              </div>
-            ) : (
-              <Link to={item.to} className="sidebar-link">
-                <span className="flex items-center gap-2">
-                  {item.icon}
-                  {item.label}
-                </span>
-              </Link>
-            )}
+                </div>
+              ) : (
+                <Link 
+                  to={item.to} 
+                  className={`nav-link ${location.pathname === item.to ? 'active' : ''}`}
+                >
+                  <span className="nav-icon">{item.icon}</span>
+                  <span className="nav-label">{item.label}</span>
+                </Link>
+              )}
+            </div>
+          ))}
+        </nav>
+        
+        <div className="sidebar-footer">
+          <div className="user-profile">
+            <div className="avatar">👤</div>
+            <div className="user-info">
+              <div className="user-name">Admin User</div>
+              <div className="user-role">System Administrator</div>
+            </div>
           </div>
-        ))}
-      </nav>
-    </aside>
+        </div>
+      </aside>
+    </div>
   );
 };
 
