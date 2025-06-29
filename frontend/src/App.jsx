@@ -1,87 +1,92 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from 'react-router-dom';
+
 import InventoryPage from "./pages/InventoryPage";
 import SalesPage from "./pages/SalesPage";
-import Navbar from './components/Shared/Navbar';
-import Sidebar from './components/Shared/Sidebar';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import WelcomePage from "./pages/WelcomePage";
 import Dashboard from './components/Dashboard/Dashboard';
 import BillingDashboard from './components/Dashboard/BillingDashboard';
 import POSInterface from './components/POS/POSInterface';
-import WelcomePage from "./pages/WelcomePage";
+import Navbar from './components/Shared/Navbar';
+import Sidebar from './components/Shared/Sidebar';
 
-
-
-
-
-function App() {
-  // ✅ Declare user state properly
+function AppWrapper() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-  // ✅ Load user from localStorage when app starts
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       setUser(storedUser);
     }
   }, []);
+   
 
-  // ✅ Set user on login
-  const login = (userData) => {
+   const login = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
-
-  // ✅ Clear user on logout
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    // ⚠️ Don't call navigate('/') here — we do it in useEffect
   };
-
   return (
-    <Router>
+    <>
       {user && <Navbar logout={logout} />}
-      <div style={{ display: "flex" }}>
+      <div style={{ display: 'flex' }}>
         {user && <Sidebar />}
-        <div style={{ marginLeft: "200px", padding: "20px", flex: 1 }}>
-         <Routes>
-   <Route path="/" element={<WelcomePage />} />
-  
-  <Route
-    path="/login"
-    element={!user ? <LoginPage login={login} /> : <Navigate to="/inventory" />}
-  />
-  <Route
-    path="/inventory"
-    element={user ? <InventoryPage /> : <Navigate to="/login" />}
-  />
-  <Route
-    path="/sales"
-    element={user ? <SalesPage /> : <Navigate to="/login" />}
-  />
-  <Route
-    path="*"
-    element={<Navigate to={user ? "/inventory" : "/login"} />}
-  />
-  <Route
-  path="/signup"
-  element={!user ? <SignUpPage login={login} /> : <Navigate to="/inventory" />}
-/>
-<Route path="/dashboard" element={<Dashboard />} />
-<Route path="/billing" element={<BillingDashboard />} />
-<Route path="/POS" element={<POSInterface />} />
-  
+        <div style={{ marginLeft: user ? '200px' : '0', padding: '20px', flex: 1 }}>
+          <Routes>
+            <Route path="/" element={<WelcomePage />} />
 
+            <Route path="/login" element={<LoginPage login={login} />} />
+            <Route path="/signup" element={<SignUpPage login={login} />} />
 
+            {/* Protected Routes */}
+            <Route
+              path="/inventory"
+              element={user ? <InventoryPage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/sales"
+              element={user ? <SalesPage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/dashboard"
+              element={user ? <Dashboard /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/billing"
+              element={user ? <BillingDashboard /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/POS"
+              element={user ? <POSInterface /> : <Navigate to="/login" />}
+            />
 
-
-</Routes>
-
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
         </div>
       </div>
-    </Router>
+    </>
   );
 }
 
-export default App;
+// Wrap App with Router
+export default function App() {
+  return (
+    <Router>
+      <AppWrapper />
+    </Router>
+  );
+}
