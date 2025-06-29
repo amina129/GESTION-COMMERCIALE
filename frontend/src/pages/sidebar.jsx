@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './sidebar.css'; // Importez le fichier CSS
 
 const sidebarItems = [
   { label: 'Modules', to: '/modules' },
@@ -16,13 +17,14 @@ const sidebarItems = [
 
 const Sidebar = () => {
   return (
-    <aside className="w-64 bg-white shadow-lg h-screen sticky top-0 p-6">
-      <nav className="flex flex-col space-y-4"> {/* THIS LINE stacks vertically */}
+    <aside className="sidebar">
+      <h2 className="sidebar-title">Navigation</h2>
+      <nav className="sidebar-nav">
         {sidebarItems.map((item) => (
           <Link
             key={item.label}
             to={item.to}
-            className="text-gray-700 hover:text-blue-600 font-semibold block"
+            className="sidebar-link"
           >
             {item.label}
           </Link>
