@@ -16,7 +16,10 @@ import Dashboard from './components/Dashboard/Dashboard';
 import BillingDashboard from './components/Dashboard/BillingDashboard';
 import POSInterface from './components/POS/POSInterface';
 import Navbar from './components/Shared/Navbar';
-import Sidebar from './components/Shared/Sidebar';
+import Sidebar from './pages/sidebar';
+import './pages/sidebar.css';
+import AccountingPage from './components/context/accounting';
+
 
 function AppWrapper() {
   const [user, setUser] = useState(null);
@@ -50,6 +53,7 @@ function AppWrapper() {
 
             <Route path="/login" element={<LoginPage login={login} />} />
             <Route path="/signup" element={<SignUpPage login={login} />} />
+             <Route path="/modules/accounting" element={<AccountingPage />} />
 
             {/* Protected Routes */}
             <Route

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './sidebar.css';
 
@@ -55,19 +55,17 @@ const sidebarItems = [
 const Sidebar = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true); 
   const location = useLocation();
 
-  const toggleDropdown = (index) => {
-    setOpenDropdown(openDropdown === index ? null : index);
-  };
+  const toggleDropdown = useCallback((index) => {
+    setOpenDropdown(prev => prev === index ? null : index);
+  }, []);
 
-  const toggleSidebar = () => {
-  setIsVisible(!isVisible);
-  setIsHovered(false);
-  };
-
-
+  const toggleSidebar = useCallback(() => {
+    setIsVisible(prev => !prev);
+    setIsHovered(false);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -81,48 +79,62 @@ const Sidebar = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isHovered, isVisible]);
 
-  return (
-    <div 
-      className={`sidebar-container ${isVisible ? 'visible' : ''} ${isHovered ? 'hovered' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="sidebar-toggle" onClick={toggleSidebar}>
+  const isActiveItem = (path) => {
+    return location.pathname.startsWith(path);
+  };
+
+   return (
+    <div className="sidebar-wrapper">
+      {/* Toggle Button Always Visible */}
+      <button 
+        className={`sidebar-toggle ${!isVisible ? 'sidebar-toggle-hidden' : ''}`} 
+        onClick={toggleSidebar}
+        aria-label={isVisible ? 'Hide sidebar' : 'Show sidebar'}
+      >
         <div className="toggle-line"></div>
         <div className="toggle-line"></div>
         <div className="toggle-line"></div>
-      </div>
-      
-      <aside className="sidebar">
-        <div className="sidebar-header">
+      </button>
+
+      {/* Sidebar */}
+      <aside className={`sidebar-container ${isVisible ? 'visible' : 'hidden'}`}>
+        <header className="sidebar-header">
           <div className="logo-container">
             <div className="logo-icon">⚡</div>
-            <h2 className="sidebar-title">HyperPlan</h2>
+            <h1 className="sidebar-title">HyperPlan</h1>
           </div>
           <p className="sidebar-subtitle">Future-Ready ERP</p>
-        </div>
-        
+        </header>
+
         <div className="sidebar-search">
-          <input type="text" placeholder="Search..." className="search-input" />
-          <div className="search-icon">🔍</div>
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            className="search-input" 
+            aria-label="Search"
+          />
+          <div className="search-icon" aria-hidden="true">🔍</div>
         </div>
-        
-        <nav className="sidebar-nav">
+
+        <nav className="sidebar-nav" aria-label="Main navigation">
           {sidebarItems.map((item, index) => (
-            <div key={item.label} className="nav-item">
+            <div key={`${item.label}-${index}`} className="nav-item">
               {item.hasDropdown ? (
                 <div className={`dropdown-container ${openDropdown === index ? 'open' : ''}`}>
                   <button
                     onClick={() => toggleDropdown(index)}
-                    className={`nav-button ${location.pathname.includes(item.to) ? 'active' : ''}`}
+                    className={`nav-button ${isActiveItem(item.to) ? 'active' : ''}`}
+                    aria-expanded={openDropdown === index}
+                    aria-controls={`dropdown-${index}`}
                   >
-                    <span className="nav-icon">{item.icon}</span>
+                    <span className="nav-icon" aria-hidden="true">{item.icon}</span>
                     <span className="nav-label">{item.label}</span>
                     <svg
                       className="dropdown-arrow"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
+                      aria-hidden="true"
                     >
                       <path
                         strokeLinecap="round"
@@ -132,14 +144,18 @@ const Sidebar = () => {
                       />
                     </svg>
                   </button>
-                  <div className="dropdown-content">
-                    {item.subItems.map((subItem) => (
+                  <div 
+                    id={`dropdown-${index}`}
+                    className="dropdown-content"
+                    hidden={openDropdown !== index}
+                  >
+                    {item.subItems.map((subItem, subIndex) => (
                       <Link
-                        key={subItem.label}
+                        key={`${subItem.label}-${subIndex}`}
                         to={subItem.to}
                         className={`sub-link ${location.pathname === subItem.to ? 'active' : ''}`}
                       >
-                        <span className="sub-icon">{subItem.icon}</span>
+                        <span className="sub-icon" aria-hidden="true">{subItem.icon}</span>
                         <span className="sub-label">{subItem.label}</span>
                       </Link>
                     ))}
@@ -150,23 +166,23 @@ const Sidebar = () => {
                   to={item.to} 
                   className={`nav-link ${location.pathname === item.to ? 'active' : ''}`}
                 >
-                  <span className="nav-icon">{item.icon}</span>
+                  <span className="nav-icon" aria-hidden="true">{item.icon}</span>
                   <span className="nav-label">{item.label}</span>
                 </Link>
               )}
             </div>
           ))}
         </nav>
-        
-        <div className="sidebar-footer">
+
+        <footer className="sidebar-footer">
           <div className="user-profile">
-            <div className="avatar">👤</div>
+            <div className="avatar" aria-hidden="true">👤</div>
             <div className="user-info">
               <div className="user-name">Admin User</div>
               <div className="user-role">System Administrator</div>
             </div>
           </div>
-        </div>
+        </footer>
       </aside>
     </div>
   );

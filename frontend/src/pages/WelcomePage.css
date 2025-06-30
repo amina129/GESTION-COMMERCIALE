@@ -94,7 +94,6 @@
   transform: translateX(3px);
 }
 
-/* ========== Hero Section ========== */
 .hero-section {
   display: flex;
   flex-direction: column;
@@ -142,28 +141,12 @@
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1.5rem;
-  background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
+  background: linear-gradient(90deg, #5e616a 0%, #606a79 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.highlight {
-  position: relative;
-  z-index: 1;
-}
-
-.highlight::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background-color: rgba(59, 130, 246, 0.2);
-  z-index: -1;
-  border-radius: 2px;
-}
 
 .hero-subtitle {
   font-size: 1.25rem;

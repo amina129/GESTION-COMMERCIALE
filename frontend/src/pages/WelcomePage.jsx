@@ -16,14 +16,13 @@ const WelcomePage = () => {
         {/* Top Header */}
         <header className="header animate-fade-in">
           <div className="header-logo">
-            <span className="logo-icon">⚡</span>
             <span className="logo-text">HyperPlan</span>
           </div>
           <Link
             to="/login"
             className="login-button"
           >
-            Se connecter
+            Start exploring
             <span className="button-icon">→</span>
           </Link>
         </header>
@@ -36,7 +35,7 @@ const WelcomePage = () => {
               OPEN SOURCE ERP
             </div>
             <h1 className="hero-title">
-              Transform Your Business with <span className="highlight">HyperPlan</span>
+              Transform Your Business with HyperPlan
             </h1>
             <p className="hero-subtitle">
               The most advanced open-source ERP solution for modern enterprises

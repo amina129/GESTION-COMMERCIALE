@@ -23,7 +23,6 @@
   --rounded-full: 9999px;
 }
 
-/* === Sidebar Container === */
 .sidebar-container {
   position: fixed;
   top: 0;
@@ -31,82 +30,36 @@
   height: 100vh;
   width: var(--sidebar-width);
   z-index: 1000;
-  transition: var(--transition);
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform: translateX(0);
+  opacity: 1;
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
 }
 
-.sidebar-container.collapsed {
-  width: var(--sidebar-collapsed);
-  transform: translateX(0);
-}
-
-.sidebar-container.collapsed .nav-label,
-.sidebar-container.collapsed .sidebar-subtitle,
-.sidebar-container.collapsed .sub-label,
-.sidebar-container.collapsed .user-name,
-.sidebar-container.collapsed .user-role,
-.sidebar-container.collapsed .search-input {
+.sidebar-container.hidden {
+  transform: translateX(-100%);
   opacity: 0;
-  width: 0;
-  height: 0;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  position: absolute;
+  pointer-events: none;
 }
 
-.sidebar-container.collapsed .sidebar-header,
-.sidebar-container.collapsed .sidebar-footer,
-.sidebar-container.collapsed .sidebar-search {
-  justify-content: center;
+.sidebar-container:not(.visible) {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
-.sidebar-container.collapsed .dropdown-arrow {
-  display: none;
-}
 
-.sidebar-container.collapsed .nav-icon,
-.sidebar-container.collapsed .sub-icon {
-  margin-right: 0;
-  font-size: 1.5rem;
-}
 
-.sidebar-container.collapsed .sidebar-title {
-  display: none;
-}
 
-.sidebar-container.collapsed .logo-icon {
-  font-size: 2rem;
-}
-
-.sidebar-container.collapsed .nav-link,
-.sidebar-container.collapsed .nav-button {
-  justify-content: center;
-  padding: 1rem 0;
-}
-
-.sidebar-container.collapsed .dropdown-content {
-  position: absolute;
-  left: calc(var(--sidebar-collapsed) + 10px);
-  min-width: 220px;
-  border-radius: var(--rounded-md);
-  box-shadow: var(--shadow-lg);
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  padding: 0.5rem;
-  z-index: 1001;
-}
-
-.sidebar-container.collapsed .sub-link {
-  padding: 0.75rem 1rem;
-}
-
-/* === Sidebar Toggle === */
 .sidebar-toggle {
-  position: absolute;
-  right: -40px;
+  position: fixed;
   top: 20px;
+  left: var(--sidebar-width);
+  z-index: 1101;
+  background: var(--primary);
+  border-radius: 0 var(--rounded-md) var(--rounded-md) 0;
+  padding: 0.5rem;
   width: 32px;
   height: 32px;
   display: flex;
@@ -115,16 +68,17 @@
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  z-index: 1001;
-  background: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(5px);
-  border-radius: 0 var(--rounded-md) var(--rounded-md) 0;
-  padding: 0.5rem;
   transition: var(--transition);
 }
 
-.sidebar-toggle:hover {
-  background: var(--primary);
+.sidebar-toggle.sidebar-toggle-hidden {
+  left: 0;
+}
+
+
+
+.sidebar-wrapper {
+  position: relative;
 }
 
 .toggle-line {
@@ -134,19 +88,7 @@
   transition: var(--transition);
 }
 
-.sidebar-container.collapsed .toggle-line:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
 
-.sidebar-container.collapsed .toggle-line:nth-child(2) {
-  opacity: 0;
-}
-
-.sidebar-container.collapsed .toggle-line:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-/* === Sidebar Header === */
 .sidebar-header {
   padding: 1.5rem 1rem;
   display: flex;
@@ -196,7 +138,6 @@
   transition: var(--transition);
 }
 
-/* === Sidebar Search === */
 .sidebar-search {
   position: relative;
   padding: 0 1rem 1.5rem;
@@ -234,7 +175,6 @@
   font-size: 0.875rem;
 }
 
-/* === Navigation === */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -345,7 +285,6 @@
   transition: var(--transition);
 }
 
-/* === Sidebar Footer === */
 .sidebar-footer {
   padding: 1rem;
   margin-top: auto;
@@ -390,7 +329,6 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* === Scrollbar === */
 .sidebar-nav::-webkit-scrollbar {
   width: 6px;
 }
@@ -408,7 +346,6 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* === Animations === */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -429,12 +366,8 @@
 .nav-item:nth-child(8) { animation-delay: 0.45s; }
 .nav-item:nth-child(9) { animation-delay: 0.5s; }
 .nav-item:nth-child(10) { animation-delay: 0.55s; }
-/* Add this to your existing CSS */
-.sidebar-container.hidden {
-  transform: translateX(-100%);
-  width: 0;
-  opacity: 0;
-}
+
+
 
 .sidebar-container.collapsed:not(.hidden) {
   width: var(--sidebar-collapsed);
@@ -442,14 +375,9 @@
   opacity: 1;
 }
 
-/* Update the toggle position for hidden state */
 .sidebar-container.hidden .sidebar-toggle {
-  right: -60px; /* Adjust as needed */
+  right: -60px; 
   background: var(--primary);
   border-radius: var(--rounded-md);
 }
 
-/* Prevent hover effects when hidden */
-.sidebar-container.hidden:hover {
-  transform: translateX(-100%);
-}
