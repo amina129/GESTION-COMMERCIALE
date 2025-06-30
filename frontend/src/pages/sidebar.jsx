@@ -14,7 +14,7 @@ const sidebarItems = [
       { label: 'Sales', icon: '💼', to: '/modules/sales' },
       { label: 'CRM', icon: '👥', to: '/modules/CRM' },
       { label: 'Stock', icon: '📦', to: '/modules/stock' },
-      { label: 'Manufacturing', icon: '🏭', to: '/modules/manufacturing' },
+      { label: 'Manufacturing', icon: '🏭', to: '/modules/Manufacturing' },
       { label: 'Projects', icon: '📋', to: '/modules/projects' },
       { label: 'Assets', icon: '🏢', to: '/modules/assets' },
       { label: 'Point of Sale', icon: '💳', to: '/modules/pos' },

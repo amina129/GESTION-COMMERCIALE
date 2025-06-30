@@ -23,6 +23,7 @@ import Procurement from './components/context/procurement';
 import Sales from './components/context/Sales';
 import CRM from './components/context/CRM';
 import Stock from './components/context/Stock';
+import Manufacturing from './components/context/Manufacturing';
 
 
 function AppWrapper() {
@@ -84,6 +85,7 @@ function AppWrapper() {
             <Route path="/modules/sales" element={<Sales />} />
             <Route path="/modules/CRM" element={<CRM />} />
             <Route path="/modules/stock" element={<Stock />} />
+            <Route path="/modules/Manufacturing" element={<Manufacturing />} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />
