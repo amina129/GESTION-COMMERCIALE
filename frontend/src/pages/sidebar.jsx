@@ -12,7 +12,7 @@ const sidebarItems = [
       { label: 'Accounting', icon: '📊', to: '/modules/accounting' },
       { label: 'Procurement', icon: '📦', to: '/modules/procurement' },
       { label: 'Sales', icon: '💼', to: '/modules/sales' },
-      { label: 'CRM', icon: '👥', to: '/modules/crm' },
+      { label: 'CRM', icon: '👥', to: '/modules/CRM' },
       { label: 'Stock', icon: '📦', to: '/modules/stock' },
       { label: 'Manufacturing', icon: '🏭', to: '/modules/manufacturing' },
       { label: 'Projects', icon: '📋', to: '/modules/projects' },

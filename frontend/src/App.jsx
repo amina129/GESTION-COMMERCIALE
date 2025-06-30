@@ -21,6 +21,7 @@ import './pages/sidebar.css';
 import AccountingPage from './components/context/accounting';
 import Procurement from './components/context/procurement';
 import Sales from './components/context/Sales';
+import CRM from './components/context/CRM';
 
 
 function AppWrapper() {
@@ -78,9 +79,9 @@ function AppWrapper() {
               path="/POS"
               element={user ? <POSInterface /> : <Navigate to="/login" />}
             />
-            <Route path="/procurement" element={<Procurement />} />
+            <Route path="/modules/procurement" element={<Procurement />} />
             <Route path="/modules/sales" element={<Sales />} />
-
+            <Route path="/modules/CRM" element={<CRM />} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />
