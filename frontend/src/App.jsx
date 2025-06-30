@@ -22,6 +22,7 @@ import AccountingPage from './components/context/accounting';
 import Procurement from './components/context/procurement';
 import Sales from './components/context/Sales';
 import CRM from './components/context/CRM';
+import Stock from './components/context/Stock';
 
 
 function AppWrapper() {
@@ -82,6 +83,7 @@ function AppWrapper() {
             <Route path="/modules/procurement" element={<Procurement />} />
             <Route path="/modules/sales" element={<Sales />} />
             <Route path="/modules/CRM" element={<CRM />} />
+            <Route path="/modules/stock" element={<Stock />} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />
