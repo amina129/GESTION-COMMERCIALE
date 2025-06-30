@@ -10,8 +10,8 @@ const sidebarItems = [
     hasDropdown: true,
     subItems: [
       { label: 'Accounting', icon: '📊', to: '/modules/accounting' },
-      { label: 'Procurement', icon: '📦', to: '/procurement' },
-      { label: 'Sales', icon: '💰', to: '/modules/sales' },
+      { label: 'Procurement', icon: '📦', to: '/modules/procurement' },
+      { label: 'Sales', icon: '💼', to: '/modules/sales' },
       { label: 'CRM', icon: '👥', to: '/modules/crm' },
       { label: 'Stock', icon: '📦', to: '/modules/stock' },
       { label: 'Manufacturing', icon: '🏭', to: '/modules/manufacturing' },

@@ -18,8 +18,9 @@ import POSInterface from './components/POS/POSInterface';
 import Navbar from './components/Shared/Navbar';
 import Sidebar from './pages/sidebar';
 import './pages/sidebar.css';
-import AccountingPage from './components/context/accounting'; // ✅ only once
+import AccountingPage from './components/context/accounting';
 import Procurement from './components/context/procurement';
+import Sales from './components/context/Sales';
 
 
 function AppWrapper() {
@@ -78,6 +79,7 @@ function AppWrapper() {
               element={user ? <POSInterface /> : <Navigate to="/login" />}
             />
             <Route path="/procurement" element={<Procurement />} />
+            <Route path="/modules/sales" element={<Sales />} />
 
 
             {/* Fallback */}
