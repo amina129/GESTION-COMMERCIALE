@@ -1,0 +1,397 @@
+/* Projects Module - Luxurious Styling */
+:root {
+  --primary: #3a4f76;  /* Deep navy */
+  --primary-dark: #2c3e5d;
+  --primary-light: #f0f4ff;
+  --secondary: #8b5a2b; /* Rich bronze */
+  --accent: #c0a062;    /* Gold accent */
+  --dark: #1a1a2e;
+  --light: #f9f9f9;
+  --text: #333333;
+  --text-light: #6d6d6d;
+  --border: #e0e0e0;
+  --success: #4caf50;
+  --warning: #ff9800;
+  --error: #f44336;
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --radius-sm: 4px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+  --shadow-lg: 0 15px 30px rgba(0,0,0,0.15);
+  --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lora', 'Times New Roman', serif;
+  color: var(--text);
+  line-height: 1.8;
+  background-color: var(--light);
+  -webkit-font-smoothing: antialiased;
+}
+
+.projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+section {
+  padding: 100px 0;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  font-size: 2.8rem;
+  color: var(--dark);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+  color: var(--dark);
+  font-family: 'Playfair Display', serif;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: var(--accent);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1.8rem;
+  color: var(--text-light);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  border: none;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 120px 0;
+  position: relative;
+  background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+              url('https://hyperplan.com/images/project-hero-bg.jpg') center/cover no-repeat;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.lead {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: var(--text);
+  line-height: 1.9;
+}
+
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.feature-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  text-align: center;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.feature-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent);
+  transition: var(--transition);
+}
+
+.feature-number {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--secondary);
+  margin-bottom: 1.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Detailed Features */
+.detailed-features {
+  margin: 6rem 0;
+}
+
+.feature-detail {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  margin-bottom: 6rem;
+  background: white;
+  padding: 4rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.feature-detail.reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-image {
+  flex: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition);
+}
+
+.feature-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: var(--transition);
+}
+
+.feature-image:hover {
+  transform: scale(1.02);
+}
+
+/* Framework Features */
+.framework-features {
+  text-align: center;
+  margin: 6rem 0;
+  background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+              url('https://hyperplan.com/images/pattern-bg.jpg');
+  padding: 5rem 2rem;
+  border-radius: var(--radius-lg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.framework-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.framework-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  text-align: center;
+}
+
+.framework-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.framework-card h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.framework-card h3:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* Final CTA */
+.final-cta {
+  text-align: center;
+  background: linear-gradient(rgba(58, 79, 118, 0.9), rgba(58, 79, 118, 0.9)), 
+              url('https://hyperplan.com/images/cta-bg.jpg') center/cover no-repeat;
+  color: white;
+  padding: 8rem 2rem;
+  position: relative;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.final-cta h2 {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.final-cta h2:after {
+  background: var(--accent);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.final-cta p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  section {
+    padding: 80px 0;
+  }
+  
+  .feature-detail, .feature-detail.reverse {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3rem;
+  }
+  
+  .feature-image {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+  }
+  
+  section {
+    padding: 64px 0;
+  }
+  
+  .projects-container {
+    padding: 0 24px;
+  }
+  
+  .hero {
+    padding: 80px 0;
+  }
+  
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+  }
+  
+  .projects-container {
+    padding: 0 16px;
+  }
+  
+  .features-grid, .framework-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .feature-card, .framework-card {
+    padding: 2rem;
+  }
+  
+  .final-cta {
+    padding: 5rem 1.5rem;
+  }
+  
+  .feature-detail {
+    padding: 2rem;
+  }
+}

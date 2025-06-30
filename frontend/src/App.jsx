@@ -24,7 +24,7 @@ import Sales from './components/context/Sales';
 import CRM from './components/context/CRM';
 import Stock from './components/context/Stock';
 import Manufacturing from './components/context/Manufacturing';
-
+import Projects from './components/context/Projects';
 
 function AppWrapper() {
   const [user, setUser] = useState(null);
@@ -86,6 +86,8 @@ function AppWrapper() {
             <Route path="/modules/CRM" element={<CRM />} />
             <Route path="/modules/stock" element={<Stock />} />
             <Route path="/modules/Manufacturing" element={<Manufacturing />} />
+            <Route path="/modules/projects" element={<Projects />} />
+            
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />
